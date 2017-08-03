@@ -1,0 +1,13 @@
+ #dropzone {
+    border-color: black;
+    border: solid;
+    text-align: center;
+    width: 300px;
+    height: 200px;
+ }
+
+ .container {
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+}
