@@ -39,14 +39,14 @@
         {% endif %}
     {% endwith %}
 
-        <form method=post enctype=multipart/form-data path="/load/" id="upload_form">
+        <form method=post enctype=multipart/form-data path="/load_images/" id="upload_form">
             <input type="button" value="Add new file" onclick="add_new_input()">
             <input type=submit value=Upload>
             <div><input type=file name=file></div>
         </form>
         <br>
         <div id="dropzone">
-            <form action="/load/"
+            <form action="/load_images/"
               class="dropzone"
               id="my-awesome-dropzone">
             </form>
