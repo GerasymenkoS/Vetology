@@ -13,7 +13,7 @@ from flask import request
 import csv, io
 from ast import literal_eval
 
-UPLOAD_FOLDER = '/app/images' #'/home/incode51/PycharmProjects/ImageSearch/images/' #'/app/images'
+UPLOAD_FOLDER = '/tmp/' #'/app/images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__, static_url_path='/images/')
