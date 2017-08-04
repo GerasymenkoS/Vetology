@@ -3,6 +3,7 @@ dask==0.15.1
 decorator==4.1.2
 elasticsearch==2.3.0
 Flask==0.12.2
+gunicorn==19.7.1
 image-match==1.1.2
 itsdangerous==0.24
 Jinja2==2.9.6
@@ -11,7 +12,6 @@ networkx==1.11
 numpy==1.13.1
 olefile==0.44
 Pillow==4.2.1
-pkg-resources==0.0.0
 scikit-image==0.12.3
 scipy==0.19.1
 six==1.10.0
