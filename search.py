@@ -16,7 +16,7 @@ class WorkWithSignatures():
         http_auth=('elastic', '5WaeXxhCvdzYvlmj7PvG4l69'),
         port=9243,
         use_ssl=True,
-        verify_certs=True
+        verify_certs=True,
     )
 
     ses = SignatureES(es, n_grid=n_grid, crop_percentile=crop_percentile, diagonal_neighbors=diagonal_neighbors,
