@@ -13,7 +13,7 @@ from flask import request
 import csv, io
 from ast import literal_eval
 
-UPLOAD_FOLDER = '/tmp/' #'/app/images'
+UPLOAD_FOLDER = '/tmp' #'/app/images'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 
 app = Flask(__name__, static_url_path='/images/')
@@ -23,7 +23,7 @@ sign = WorkWithSignatures()
 
 @app.route('/images/<path:path>')
 def send_iamges(path):
-    return send_from_directory('images', path)
+    return send_from_directory('/tmp', path)
 
 @app.route('/js/<path:path>')
 def send_js(path):
