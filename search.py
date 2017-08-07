@@ -19,6 +19,8 @@ class WorkWithSignatures():
         verify_certs=True,
     )
 
+    # es = Elasticsearch()
+
     ses = SignatureES(es, n_grid=n_grid, crop_percentile=crop_percentile, diagonal_neighbors=diagonal_neighbors,
                       identical_tolerance=identical_tolerance, n_levels=n_levels)
 

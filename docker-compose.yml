@@ -1,0 +1,19 @@
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch
+    hostname: elasticsearch
+    ports:
+      - "9200:9200"
+    mem_limit: 2g
+    environment:
+    - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+
+  flaskoweb:
+    build: .
+    hostname: flask
+    command: bash -c "gunicorn -b 0.0.0.0:8888 app:app -w 4"
+    ports:
+      - "8888:8888"
+    links:
+      - elasticsearch
