@@ -127,7 +127,6 @@ def search():
     if request.method == 'POST':
         files = request.files.getlist('file')
         if files:
-            limit = int(request.form['search_limit'])
             files = request.files.getlist('file')
             result = []
             index = 1
@@ -135,7 +134,11 @@ def search():
                 if file.filename:
                     f = file.read()
                     try:
-                        search_answ = sign.search_file(f)[0:limit]
+                        if request.form['search_limit']:
+                            limit = int(request.form['search_limit'])
+                            search_answ = sign.search_file(f)[0:limit]
+                        else:
+                            search_answ = sign.search_file(f)
                         result.append(Result(number=index, answ=search_answ))
                         index += 1
 
@@ -143,7 +146,7 @@ def search():
                         return "DB is empty"
                     except ValueError as e:
                         print(e)
-                        return "Incorrect parameter"
+                        return "Incorrect parameter: " + str(e)
                 else:
                     continue
 
