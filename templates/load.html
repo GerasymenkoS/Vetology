@@ -9,19 +9,6 @@
         <!-- Latest compiled and minified JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-
-        <script>
-            var count = 1;
-            function add_new_input() {
-                if (count <= 10) {
-                    var container = document.getElementById("upload_form");
-                    var div = document.createElement('div');
-                    div.innerHTML = '<input type="file" name="file">';
-                    container.appendChild(div);
-                    count += 1;
-                }
-            }
-        </script>
         <script src="/js/dropzone.js"></script>
         <link rel="stylesheet" type="text/css" href="/css/dropzone.css">
     </head>
@@ -40,7 +27,6 @@
     {% endwith %}
 
         <form method=post enctype=multipart/form-data path="/load_images/" id="upload_form">
-            <input type="button" value="Add new file" onclick="add_new_input()">
             <input type=submit value=Upload>
             <div><input type=file name=file></div>
         </form>

@@ -11,13 +11,14 @@ class WorkWithSignatures():
     identical_tolerance = 2/255
     n_levels = 2
 
-    es = Elasticsearch(
-        ['2f93f0f9514feb202fd1f7bf0c156606.us-west-2.aws.found.io'],
-        http_auth=('elastic', '5WaeXxhCvdzYvlmj7PvG4l69'),
-        port=9243,
-        use_ssl=True,
-        verify_certs=True,
-    )
+    # es = Elasticsearch(
+    #     ['2f93f0f9514feb202fd1f7bf0c156606.us-west-2.aws.found.io'],
+    #     http_auth=('elastic', '5WaeXxhCvdzYvlmj7PvG4l69'),
+    #     port=9243,
+    #     use_ssl=True,
+    #     verify_certs=True,
+    # )
+    es = Elasticsearch()
 
     ses = SignatureES(es, n_grid=n_grid, crop_percentile=crop_percentile, diagonal_neighbors=diagonal_neighbors,
                       identical_tolerance=identical_tolerance, n_levels=n_levels)
@@ -50,4 +51,4 @@ class WorkWithSignatures():
         self.ses.add_image(path)
 
     def search_file(self, file_bytes):
-        return self.ses.search_image(file_bytes, bytestream=True)
+        return self.ses.search_image(file_bytes, bytestream=True, all_orientations=True)

@@ -2,6 +2,8 @@ import os
 import random
 import string
 
+import collections
+
 import elasticsearch
 from flask import Flask
 from flask import render_template
@@ -23,7 +25,7 @@ sign = WorkWithSignatures()
 
 @app.route('/images/<path:path>')
 def send_iamges(path):
-    return send_from_directory('/tmp', path)
+    return send_from_directory(UPLOAD_FOLDER, path)
 
 @app.route('/js/<path:path>')
 def send_js(path):
@@ -78,6 +80,7 @@ def params():
             params_dict['identical_tolerance'] = float(f['identical_tolerance'])
             params_dict['n_levels'] = int(f['n_levels'])
         except ValueError as e:
+            print(e)
             return "Incorrect params"
         except Exception as e:
             return "Wrong"
@@ -117,18 +120,34 @@ def clear():
     return "Deleted"
 
 
+Result = collections.namedtuple('Result', 'number answ')
 
 @app.route("/search/", methods=['GET', 'POST'])
 def search():
     if request.method == 'POST':
-        if request.files['file']:
-            f = request.files['file'].read()
-            try:
-                result = sign.search_file(f)
-            except elasticsearch.exceptions.NotFoundError as e:
-                return "DB is empty"
-            else:
-                return render_template('result.html', result=result)
+        files = request.files.getlist('file')
+        if files:
+            limit = int(request.form['search_limit'])
+            files = request.files.getlist('file')
+            result = []
+            index = 1
+            for file in files:
+                if file.filename:
+                    f = file.read()
+                    try:
+                        search_answ = sign.search_file(f)[0:limit]
+                        result.append(Result(number=index, answ=search_answ))
+                        index += 1
+
+                    except elasticsearch.exceptions.NotFoundError as e:
+                        return "DB is empty"
+                    except ValueError as e:
+                        print(e)
+                        return "Incorrect parameter"
+                else:
+                    continue
+
+            return render_template('result.html', result=result)
         else:
             return render_template('search.html')
     else:

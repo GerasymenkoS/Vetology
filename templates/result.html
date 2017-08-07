@@ -12,6 +12,8 @@
 <doby>
 {% if result %}
 <div class="container">
+    {% for r in result %}
+    <span> Result № {{ r.number }}</span>
     <table  class="table table-striped">
         <thead>
           <tr>
@@ -20,20 +22,21 @@
             <th>Path</th>
           </tr>
         </thead>
-        {% for res in result %}
+        {% for res in r.answ %}
             <tr>
                 <td>
                     <img src="/images/{{ res['path'].split('/')[-1] }}" width="30%">
                 </td>
                 <td>
-                    <p>{{ res.dist }}</p>
+                    <p>{{ res['dist'] }}</p>
                 </td>
                 <td>
-                    <p>{{ res.path }}</p>
+                    <p>{{ res['path'] }}</p>
                 </td>
             </tr>
         {% endfor %}
     </table>
+    {% endfor %}
 </div>
 {% else %}
 
