@@ -14,6 +14,6 @@ services:
     hostname: flask
     command: bash -c "gunicorn -b 0.0.0.0:8888 app:app -w 4"
     ports:
-      - "8888:8888"
+      - "80:8888"
     links:
       - elasticsearch
