@@ -11,15 +11,11 @@ class WorkWithSignatures():
     n_levels = 2
     search_rotated = False
 
-    # es = Elasticsearch(
-    #     ['2f93f0f9514feb202fd1f7bf0c156606.us-west-2.aws.found.io'],
-    #     http_auth=('elastic', '5WaeXxhCvdzYvlmj7PvG4l69'),
-    #     port=9243,
-    #     use_ssl=True,
-    #     verify_certs=True,
-    # )
+    es = Elasticsearch(
+        ['elasticsearch'],
+        port=9200,
+    )
 
-    es = Elasticsearch()
 
     ses = SignatureES(es, n_grid=n_grid, crop_percentile=crop_percentile, diagonal_neighbors=diagonal_neighbors,
                       identical_tolerance=identical_tolerance, n_levels=n_levels)
