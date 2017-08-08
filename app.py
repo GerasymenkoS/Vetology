@@ -16,7 +16,7 @@ import csv, io
 from ast import literal_eval
 
 UPLOAD_FOLDER = '/tmp' #'/app/images'
-ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__, static_url_path='/images/')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -48,13 +48,13 @@ def allowed_file(filename):
 def load_csv_file():
     if request.method == 'POST':
         if request.files['csv_file']:
-            csv_file = io.StringIO(request.files['csv_file'].stream.read().decode("UTF8"), newline=None)
-            path_reader = csv.reader(csv_file, delimiter=' ', quotechar='|')
-            for path in path_reader:
-                try:
-                    sign.load_file(path[0])
-                except Exception as e:
-                    print("Wrond " + str(e))
+            try:
+                csv_file = io.StringIO(request.files['csv_file'].stream.read().decode("UTF8"), newline=None)
+                path_reader = csv.reader(csv_file, delimiter=' ', quotechar='|')
+                for path in path_reader:
+                    sign.load_file(path[0].replace(',', '/'))
+            except Exception as e:
+                return "Wrong " + str(e)
             return "OK"
         else:
             return render_template('load_csv.html')
@@ -77,6 +77,7 @@ def params():
             params_dict['crop_percentile'] = literal_eval(f['crop_percentile'])
             params_dict['P'] = int(f['P']) if f['P'] else None
             params_dict['diagonal_neighbors'] = bool(f.get('diagonal_neighbors'))
+            params_dict['search_rotated'] = bool(f.get('search_rotated'))
             params_dict['identical_tolerance'] = float(f['identical_tolerance'])
             params_dict['n_levels'] = int(f['n_levels'])
         except ValueError as e:

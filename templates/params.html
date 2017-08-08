@@ -29,6 +29,9 @@
              <div class="checkbox">
                 <label><input type="checkbox" name="diagonal_neighbors" {% if diagonal_neighbors %} checked {% endif %}>Diagonal neighbors</label>
               </div>
+              <div class="checkbox">
+                <label><input type="checkbox" name="search_rotated" {% if search_rotated %} checked {% endif %}>Search rotated images</label>
+              </div>
              <div class="input-group">
                 <span class="input-group-addon">Tolerance</span>
                 <input id="msg" type="number" class="form-control" name="identical_tolerance" placeholder="Tolerance" step = "any" value="{{ identical_tolerance }}">
