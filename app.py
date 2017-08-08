@@ -104,11 +104,14 @@ def load_new_file():
                 if file.filename == '':
                     return render_template('load.html')
                 if file and allowed_file(file.filename):
-                    salt = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
-                    filename = str(salt) + secure_filename(file.filename)
-                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    file.save(file_path)
-                    sign.load_file(file_path)
+                    try:
+                        salt = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+                        filename = str(salt) + secure_filename(file.filename)
+                        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                        file.save(file_path)
+                        sign.load_file(file_path)
+                    except Exception as e:
+                        return "Wrong: " + str(e)
             return "OK"
         else:
             return render_template('load.html')
