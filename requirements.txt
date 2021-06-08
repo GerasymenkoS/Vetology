@@ -11,7 +11,7 @@ MarkupSafe==1.0
 networkx==1.11
 numpy
 olefile==0.44
-Pillow==4.2.1
+Pillow==8.2.0
 scikit-image
 scipy==0.19.1
 six==1.10.0
